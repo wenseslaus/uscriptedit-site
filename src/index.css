@@ -190,7 +190,6 @@ a {
   padding: calc(var(--grid-size) * 1) calc(var(--grid-size) * 1);
   max-width: 900px;
   margin: 0 auto;
-  /* background: rgba(10, 10, 15, 0.9); */
   /* slight transparency to let starry grid show */
 }
 

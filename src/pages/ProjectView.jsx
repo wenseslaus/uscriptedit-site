@@ -3,18 +3,19 @@ import { useParams, useNavigate } from 'react-router-dom';
 import projectData from '../data/projects.json';
 import { ArrowLeft } from 'lucide-react';
 
+const imageModules = import.meta.glob('/public/projects/*/images/*', { eager: true });
+
 export default function ProjectView() {
   const { projectId } = useParams();
   const navigate = useNavigate();
   const [content, setContent] = useState('');
+  const [galleryImages, setGalleryImages] = useState([]);
   
   const project = projectData.find(p => p.id === projectId);
 
   useEffect(() => {
-    // Scroll to top
     window.scrollTo(0, 0);
     
-    // Fetch the text content associated with the project folder
     fetch(`/projects/${projectId}/content.txt`)
       .then(res => {
         if (res.ok) return res.text();
@@ -22,6 +23,16 @@ export default function ProjectView() {
       })
       .then(text => setContent(text))
       .catch(err => setContent('Error loading content.'));
+
+    const images = [];
+    const imagesPath = `/public/projects/${projectId}/images/`;
+    for (const path in imageModules) {
+      if (path.startsWith(imagesPath)) {
+        const fileName = path.replace(imagesPath, '');
+        images.push(`/projects/${projectId}/images/${fileName}`);
+      }
+    }
+    setGalleryImages(images);
   }, [projectId]);
 
   if (!project) return <div className="project-view">Project not found</div>;
@@ -45,11 +56,14 @@ export default function ProjectView() {
           alt={`${project.title} main`}
           onError={(e) => { e.target.style.display = 'none'; }}
         />
-        <img 
-          src={`/projects/${projectId}/images/demo.jpg`} 
-          alt={`${project.title} detail`}
-          onError={(e) => { e.target.style.display = 'none'; }}
-        />
+        {galleryImages.map((src, index) => (
+          <img 
+            key={index}
+            src={src} 
+            alt={`${project.title} ${index + 1}`}
+            onError={(e) => { e.target.style.display = 'none'; }}
+          />
+        ))}
       </div>
     </div>
   );
