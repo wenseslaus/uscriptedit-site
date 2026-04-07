@@ -35,7 +35,7 @@ export default function ProjectView() {
     setGalleryImages(images.sort());
   }, [projectId]);
 
-  if (!project) return <div className="project-view">Project not found, Enjoy the View!</div>;
+  if (!project) return <div className="project-view">Project not found, enjoy the view!</div>;
 
   return (
     <div className="project-view">
