@@ -193,8 +193,9 @@ export default function HomeGrid() {
             onMouseLeave={() => setHoveredProject(null)}
           >
             <img 
-              src={`/projects/${item.id}/key-image.jpg`} 
+              src={`/projects/${item.id}/key-image.webp`} 
               alt={item.title} 
+              loading="lazy"
               onError={(e) => {
                 e.target.style.display = 'none';
               }}
