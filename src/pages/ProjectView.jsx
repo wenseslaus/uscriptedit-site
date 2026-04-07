@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import projectData from '../data/projects.json';
 import { ArrowLeft } from 'lucide-react';
 
-const imageModules = import.meta.glob('/public/projects/*/images/*', { eager: true });
+const imageModules = import.meta.glob('/public/projects/*/images/*.webp', { eager: true });
 
 export default function ProjectView() {
   const { projectId } = useParams();
@@ -32,7 +32,7 @@ export default function ProjectView() {
         images.push(`/projects/${projectId}/images/${fileName}`);
       }
     }
-    setGalleryImages(images);
+    setGalleryImages(images.sort());
   }, [projectId]);
 
   if (!project) return <div className="project-view">Project not found</div>;
@@ -52,16 +52,28 @@ export default function ProjectView() {
       
       <div className="project-gallery">
         <img 
-          src={`/projects/${projectId}/key-image.jpg`} 
+          src={`/projects/${projectId}/key-image.webp`} 
           alt={`${project.title} main`}
-          onError={(e) => { e.target.style.display = 'none'; }}
+          loading="lazy"
+          onError={(e) => { 
+            e.target.style.display = 'none'; 
+          }}
         />
         {galleryImages.map((src, index) => (
           <img 
             key={index}
             src={src} 
             alt={`${project.title} ${index + 1}`}
-            onError={(e) => { e.target.style.display = 'none'; }}
+            loading="lazy"
+            onError={(e) => { 
+              const webpSrc = src.replace(/\.(jpg|jpeg|png|gif|webp)$/i, '.webp');
+              if (src !== webpSrc) {
+                e.target.src = webpSrc;
+                e.target.onerror = () => { e.target.style.display = 'none'; };
+              } else {
+                e.target.style.display = 'none';
+              }
+            }}
           />
         ))}
       </div>
