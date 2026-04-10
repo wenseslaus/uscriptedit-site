@@ -5,6 +5,11 @@ import { ArrowLeft } from 'lucide-react';
 
 const imageModules = import.meta.glob('/public/projects/*/images/*.webp', { eager: true });
 
+function makeLinksClickable(text) {
+  const urlRegex = /(https?:\/\/[^\s<]+)/g;
+  return text.replace(urlRegex, '<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>');
+}
+
 export default function ProjectView() {
   const { projectId } = useParams();
   const navigate = useNavigate();
@@ -46,9 +51,10 @@ export default function ProjectView() {
       
       <h1 className="project-title">{project.title}</h1>
       
-      <div className="project-content">
-        {content}
-      </div>
+      <div 
+        className="project-content"
+        dangerouslySetInnerHTML={{ __html: makeLinksClickable(content) }}
+      />
       
       <div className="project-gallery">
         <img 
