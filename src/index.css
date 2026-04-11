@@ -226,6 +226,15 @@ a {
   white-space: pre-wrap;
 }
 
+.project-content a {
+  color: #64b5f6;
+  text-decoration: underline;
+}
+
+.project-content a:hover {
+  color: #90caf9;
+}
+
 .project-gallery {
   display: flex;
   flex-direction: column;
