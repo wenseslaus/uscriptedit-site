@@ -231,7 +231,7 @@ export default function HomeGrid() {
         <div className="scrolling-text">
           {[1, 2, 3, 4].map((i) => (
             <div key={i} className="marquee-content" aria-hidden={i > 1 ? "true" : "false"}>
-              ©️2026 USCRIPTEDIT &nbsp;|&nbsp; <a href="https://khaki.co.tz/" target="_blank" rel="noopener noreferrer">DESIGNED AND BUILD BY KHAKI</a> &nbsp;|&nbsp; INSTAGRAM: <a href="https://www.instagram.com/uscriptedit_space/" target="_blank" rel="noopener noreferrer">@USCRIPTEDIT</a> &nbsp;|&nbsp; PHONE: <a href="tel:+255754939843" target="_blank" rel="noopener noreferrer">+255 754 939 843</a> &nbsp;|&nbsp; EMAIL: <a href="mailto:uscriptedit@gmail.com" target="_blank" rel="noopener noreferrer">USCRIPTEDIT@GMAIL.COM</a>
+              ©️2026 FORTHERECORD X USCRIPTEDIT &nbsp;|&nbsp; <a href="https://khaki.co.tz/" target="_blank" rel="noopener noreferrer">DESIGNED AND BUILD BY KHAKI</a> &nbsp;|&nbsp; INSTAGRAM: <a href="https://www.instagram.com/uscriptedit_space/" target="_blank" rel="noopener noreferrer">@USCRIPTEDIT</a> &nbsp;|&nbsp; PHONE: <a href="tel:+255754939843" target="_blank" rel="noopener noreferrer">+255 754 939 843</a> &nbsp;|&nbsp; EMAIL: <a href="mailto:uscriptedit@gmail.com" target="_blank" rel="noopener noreferrer">USCRIPTEDIT@GMAIL.COM</a>
             </div>
           ))}
         </div>
