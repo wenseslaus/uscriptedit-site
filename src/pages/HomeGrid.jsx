@@ -207,6 +207,10 @@ export default function HomeGrid() {
 
   return (
     <>
+      <div className="home-banner top-banner">
+        <span>USCRIPTEDIT</span>
+      </div>
+      
       <div className="marquee-wrapper">
         <div className={`marquee-train ${hoveredProject ? 'has-hover' : ''}`} ref={marqueeRef}>
           {renderGridBlock('block-1')}
@@ -222,6 +226,16 @@ export default function HomeGrid() {
           </div>
         </div>
       )}
+
+      <div className="home-banner bottom-banner">
+        <div className="scrolling-text">
+          {[1, 2, 3, 4].map((i) => (
+            <div key={i} className="marquee-content" aria-hidden={i > 1 ? "true" : "false"}>
+              ©️2026 USCRIPTEDIT &nbsp;|&nbsp; DESIGNED AND BUILD BY KHAKI &nbsp;|&nbsp; INSTAGRAM: <a href="https://www.instagram.com/uscriptedit" target="_blank" rel="noopener noreferrer">@USCRIPTEDIT</a> &nbsp;|&nbsp; PHONE: <a href="tel:+255754567345" target="_blank" rel="noopener noreferrer">+255 754 567 345</a> &nbsp;|&nbsp; EMAIL: <a href="mailto:uscriptedit@gmail.com" target="_blank" rel="noopener noreferrer">USCRIPTEDIT@GMAIL.COM</a>
+            </div>
+          ))}
+        </div>
+      </div>
     </>
   );
 }
