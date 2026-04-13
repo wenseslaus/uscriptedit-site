@@ -46,7 +46,7 @@ export default function ProjectView() {
     <div className="project-view">
       <div className="back-button" onClick={() => navigate(-1)}>
         <ArrowLeft size={20} />
-        Back to Grid
+        Back to All Projects
       </div>
       
       <h1 className="project-title">{project.title}</h1>

@@ -195,7 +195,6 @@ export default function HomeGrid() {
             <img 
               src={`/projects/${item.id}/key-image.webp`} 
               alt={item.title} 
-              loading="lazy"
               onError={(e) => {
                 e.target.style.display = 'none';
               }}
