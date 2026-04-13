@@ -358,14 +358,14 @@ a {
 
 @media (max-width: 1024px) {
   .home-banner {
-    height: 28px;
-    font-size: 11px;
+    height: 30px;
+    font-size: 12px;
   }
 }
 
 @media (max-width: 600px) {
   .home-banner {
-    height: 24px;
-    font-size: 9px;
+    height: 30px;
+    font-size: 12px;
   }
 }
