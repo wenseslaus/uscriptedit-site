@@ -2,8 +2,10 @@
 
 :root {
   --grid-size: 90px;
-  --grid-color: rgba(255, 255, 255, 0.08); /* Faint white grids */
-  --bg-color: transparent; /* Allows canvas to show */
+  --grid-color: rgba(255, 255, 255, 0.08);
+  /* Faint white grids */
+  --bg-color: transparent;
+  /* Allows canvas to show */
   --text-color: #ffffff;
 }
 
@@ -331,13 +333,14 @@ a {
   display: flex;
   align-items: center;
   white-space: nowrap;
-  padding-right: 50px;
+  padding-right: 150px;
 }
 
 @keyframes scroll-left {
   0% {
     transform: translateX(0);
   }
+
   100% {
     transform: translateX(-25%);
   }

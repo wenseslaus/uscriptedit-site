@@ -21,7 +21,7 @@ export default function HomeGrid() {
   const navigate = useNavigate();
   const [hoveredProject, setHoveredProject] = useState(null);
   const [overlayPosition, setOverlayPosition] = useState({ top: '50%', left: '50%' });
-  
+
   const isHoveredRef = useRef(false);
   const marqueeRef = useRef(null);
 
@@ -37,7 +37,7 @@ export default function HomeGrid() {
       uniqueId: `spacer-${i}`,
       size: Math.random() > 0.85 ? '2x2' : '1x1'
     }));
-    
+
     // Duplicate projects to appear 3 times each, with varying randomized sizes 
     const repeatedProjects = [];
     projectData.forEach(p => {
@@ -45,7 +45,7 @@ export default function HomeGrid() {
         const rand = Math.random();
         let randomSize = '1x1';
         if (rand > 0.85) {
-          randomSize = '3x3'; 
+          randomSize = '3x3';
         } else if (rand > 0.45) {
           randomSize = '2x2';
         } else {
@@ -63,26 +63,26 @@ export default function HomeGrid() {
     const combined = [...repeatedProjects, ...spacers];
     cachedGridItems = shuffle(combined);
   }
-  
+
   const gridItems = cachedGridItems;
 
   useEffect(() => {
     let animationFrameId;
     let lastTime = performance.now();
     let currentPos = savedScrollPos;
-    
+
     // 3600px over 60 seconds (60000ms)
-    const speed = 3600 / 60000; 
+    const speed = 3600 / 60000;
 
     // Apply the very first position immediately to prevent a visible jump
     if (marqueeRef.current) {
       marqueeRef.current.style.transform = `translateX(${currentPos}px)`;
     }
-    
+
     const update = (time) => {
       const delta = time - lastTime;
       lastTime = time;
-      
+
       // If the delta is extremely large (e.g., user tabbed away), ignore this frame
       if (delta > 100) {
         animationFrameId = requestAnimationFrame(update);
@@ -104,25 +104,25 @@ export default function HomeGrid() {
       }
       animationFrameId = requestAnimationFrame(update);
     };
-    
+
     animationFrameId = requestAnimationFrame(update);
     return () => cancelAnimationFrame(animationFrameId);
   }, []);
 
   const handleMouseEnter = (item) => {
     setHoveredProject(item);
-    
+
     // Smart placement logic: Find least crowded area
     const viewportW = window.innerWidth;
     const viewportH = window.innerHeight;
     const margin = viewportW > 600 ? 20 : 10;
-    
+
     const cardW = Math.min(450, viewportW - (margin * 2)); // Dynamic responsive card width
     const cardH = 320; // safe estimation of height with larger fonts and 1-2 paragraphs
-    
-    const maxSafeW = viewportW - cardW - (margin * 2); 
+
+    const maxSafeW = viewportW - cardW - (margin * 2);
     const maxSafeH = viewportH - cardH - (margin * 2);
-    
+
     // Fallback if screen is tiny
     if (maxSafeW < 0 || maxSafeH < 0) {
       setOverlayPosition({ top: '50%', left: '50%', transform: 'translate(-50%, -50%)' });
@@ -143,12 +143,12 @@ export default function HomeGrid() {
       const testX = margin + Math.random() * maxSafeW;
       const testY = margin + Math.random() * maxSafeH;
       let overlapArea = 0;
-      
+
       for (const r of onScreenRects) {
         // Calculate rectangular intersection overlap
         const overlapX = Math.max(0, Math.min(testX + cardW, r.right) - Math.max(testX, r.left));
         const overlapY = Math.max(0, Math.min(testY + cardH, r.bottom) - Math.max(testY, r.top));
-        
+
         if (overlapX > 0 && overlapY > 0) {
           overlapArea += (overlapX * overlapY);
         }
@@ -159,7 +159,7 @@ export default function HomeGrid() {
         minOverlap = overlapArea;
         bestPos = { top: testY, left: testX };
       }
-      
+
       // If we found a spot with zero overlap, we can exit early!
       if (overlapArea === 0) break;
     }
@@ -177,24 +177,24 @@ export default function HomeGrid() {
       {gridItems.map((item, idx) => {
         if (item.isSpacer) {
           return (
-            <div 
-              key={`${blockId}-${item.uniqueId}-${idx}`} 
+            <div
+              key={`${blockId}-${item.uniqueId}-${idx}`}
               className={`grid-spacer size-${item.size}`}
             />
           );
         }
-        
+
         return (
-          <div 
+          <div
             key={`${blockId}-${item.uniqueId}-${idx}`}
             className={`grid-item size-${item.size}`}
             onClick={() => navigate(`/project/${item.id}`)}
             onMouseEnter={() => handleMouseEnter(item)}
             onMouseLeave={() => setHoveredProject(null)}
           >
-            <img 
-              src={`/projects/${item.id}/key-image.webp`} 
-              alt={item.title} 
+            <img
+              src={`/projects/${item.id}/key-image.webp`}
+              alt={item.title}
               onError={(e) => {
                 e.target.style.display = 'none';
               }}
@@ -210,14 +210,14 @@ export default function HomeGrid() {
       <div className="home-banner top-banner">
         <span>USCRIPTEDIT</span>
       </div>
-      
+
       <div className="marquee-wrapper">
         <div className={`marquee-train ${hoveredProject ? 'has-hover' : ''}`} ref={marqueeRef}>
           {renderGridBlock('block-1')}
           {renderGridBlock('block-2')}
         </div>
       </div>
-      
+
       {hoveredProject && (
         <div className="global-project-overlay">
           <div className="overlay-card" style={overlayPosition}>
@@ -231,7 +231,7 @@ export default function HomeGrid() {
         <div className="scrolling-text">
           {[1, 2, 3, 4].map((i) => (
             <div key={i} className="marquee-content" aria-hidden={i > 1 ? "true" : "false"}>
-              ©️2026 USCRIPTEDIT &nbsp;|&nbsp; DESIGNED AND BUILD BY KHAKI &nbsp;|&nbsp; INSTAGRAM: <a href="https://www.instagram.com/uscriptedit" target="_blank" rel="noopener noreferrer">@USCRIPTEDIT</a> &nbsp;|&nbsp; PHONE: <a href="tel:+255754567345" target="_blank" rel="noopener noreferrer">+255 754 567 345</a> &nbsp;|&nbsp; EMAIL: <a href="mailto:uscriptedit@gmail.com" target="_blank" rel="noopener noreferrer">USCRIPTEDIT@GMAIL.COM</a>
+              ©️2026 USCRIPTEDIT &nbsp;|&nbsp; <a href="https://khaki.co.tz/" target="_blank" rel="noopener noreferrer">DESIGNED AND BUILD BY KHAKI</a> &nbsp;|&nbsp; INSTAGRAM: <a href="https://www.instagram.com/uscriptedit_space/" target="_blank" rel="noopener noreferrer">@USCRIPTEDIT</a> &nbsp;|&nbsp; PHONE: <a href="tel:+255754939843" target="_blank" rel="noopener noreferrer">+255 754 939 843</a> &nbsp;|&nbsp; EMAIL: <a href="mailto:uscriptedit@gmail.com" target="_blank" rel="noopener noreferrer">USCRIPTEDIT@GMAIL.COM</a>
             </div>
           ))}
         </div>
